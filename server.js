@@ -8,6 +8,7 @@ require("dotenv").config();
 const authRoutes = require("./src/routes/authRoutes");
 const foodRoutes = require("./src/routes/foodRoutes");
 const orderRoutes = require("./src/routes/orderRoutes");
+const restaurantRoutes = require("./src/routes/restaurantRoutes");
 
 const app = express();
 
@@ -15,14 +16,17 @@ app.use(cors());
 app.use(express.json());
 
 // Home route
+
 app.get("/", (req, res) => {
-    res.send("Welcome to FoodieGo API");
+    res.status(200).send("FoodieGo API is working!");
 });
+    
 
 // Register routes only once
 app.use("/api/auth", authRoutes);
 app.use("/api/foods", foodRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/restaurants", restaurantRoutes);
 
 // Handle unknown routes
 app.use((req, res) => {
