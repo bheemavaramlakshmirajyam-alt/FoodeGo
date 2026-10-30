@@ -1,19 +1,29 @@
 
+
 const express = require("express");
 const router = express.Router();
 
 const {
-  getRestaurants,
-  getRestaurantById,
-  createRestaurant,
-  updateRestaurant,
-  deleteRestaurant
+    createRestaurant,
+    getRestaurants,
+    getRestaurantById,
+    updateRestaurant,
+    deleteRestaurant
 } = require("../controllers/restaurantController");
 
-router.get("/", getRestaurants);
-router.get("/:id", getRestaurantById);
+// POST - Create restaurant
 router.post("/", createRestaurant);
-router.put("/:id", updateRestaurant);
+
+// GET - All restaurants
+router.get("/", getRestaurants);
+
+// GET - Restaurant by ID
+router.get("/:id", getRestaurantById);
+
+// PATCH - Update restaurant
+router.patch("/:id", updateRestaurant);
+
+// DELETE - Delete restaurant
 router.delete("/:id", deleteRestaurant);
 
 module.exports = router;

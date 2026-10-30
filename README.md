@@ -17,5 +17,3 @@ Configure PORT and MONGO_URI in your .env file.
 npm run dev
 
 ## Run in Production
-
-npm start

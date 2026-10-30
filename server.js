@@ -1,51 +1,37 @@
 
-
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-require("dotenv").config();
 
-const authRoutes = require("./src/routes/authRoutes");
-const foodRoutes = require("./src/routes/foodRoutes");
-const orderRoutes = require("./src/routes/orderRoutes");
 const restaurantRoutes = require("./src/routes/restaurantRoutes");
+const menuItemRoutes = require("./src/routes/menuItemRoutes");
 
+
+
+require("dotenv").config();
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
 // Home route
-
 app.get("/", (req, res) => {
-    res.status(200).send("FoodieGo API is working!");
+    res.send("FoodieGo API is running");
 });
-    
 
-// Register routes only once
-app.use("/api/auth", authRoutes);
-app.use("/api/foods", foodRoutes);
-app.use("/api/orders", orderRoutes);
+// Restaurant routes
 app.use("/api/restaurants", restaurantRoutes);
+app.use("/api/menuItems", menuItemRoutes);
 
-// Handle unknown routes
-app.use((req, res) => {
-    res.status(404).json({
-        message: "Route not found",
-        path: req.originalUrl,
-        method: req.method
-    });
-});
+
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
         console.log("MongoDB Connected Successfully");
 
-        const PORT = process.env.PORT || 5000;
-
-        app.listen(PORT, () => {
-            console.log(`FoodieGo Server running on port ${PORT}`);
+        app.listen(process.env.PORT || 5000, () => {
+            console.log("Server running on port 5000");
         });
     })
     .catch((error) => {
